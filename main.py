@@ -1,16 +1,40 @@
-# This is a sample Python script.
+from os import close
+from typing import Union
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from fastapi import FastAPI
+import sqlite3
+import json
+app = FastAPI()
+@app.post("/books")
+def add_new_book():
+    return {"Successfully added."}
 
+@app.get("/books")
+def fetch_all_books():
+    try:
+        # connect to books database
+        connector = sqlite3.connect("books_database")
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+        # creates a cursor object
+        cursor = connector.cursor()
 
+        # runs a SELECT query
+        cursor.execute("SELECT * FROM books_database")
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi("Clin How's you?")
+        #Fetch all rows
+        rows = cursor.fetchall()
+        return rows
+    except sqlite3.Error as e:
+        print(f"Error: {e}")
+        return []
+    finally:
+        #close connection
+        connector.close()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+@app.patch("/books/{book_id}")
+def update_book():
+    return {"Successfully updated."}
+
+@app.delete("/books/{book_id}")
+def remove_book():
+    return {"Successfully deleted."}
