@@ -1,8 +1,7 @@
-from sqlalchemy import create_engine
-from sqlalchemy_utils import database_exists, create_database
+from sqlmodel import create_engine, SQLModel
 
-engine = create_engine("postgresql://localhost/mydb")
-if not database_exists(engine.url):
-    create_database(engine.url)
+DATABASE_URL = "sqlite:///db.sqlite"
 
-print(database_exists(engine.url))
+engine = create_engine(DATABASE_URL, echo=True)
+
+SQLModel.metadata.create_all(engine)
