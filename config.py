@@ -3,4 +3,5 @@ APP_ENV="development"
 PORT=8000
 ALLOWED_ORIGINS=" http://127.0.0.1:8000"
 
-DATABASE_URL="sqlite:///./db.sqlite"
+sqlite_file_name = "books.db"
+DATABASE_URL=f"sqlite:///./{sqlite_file_name}"
