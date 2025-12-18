@@ -1,1 +1,3 @@
-from authors.services import get_author_by_id
+title
+author
+publication_date
