@@ -1,3 +1,9 @@
-title
-author
-publication_date
+from sqlmodel import SQLModel, Field
+
+class Book(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    title: str
+    author: str
+    isbn: str
+    genre: str
+    publication_year: int
