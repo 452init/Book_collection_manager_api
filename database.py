@@ -7,7 +7,7 @@ def start_session():
     with Session(engine) as session:
         yield session
 
-def create_db_and_tables():
+def create_db_tables():
     from books.models import Book
     from authors.models import Author
     from genres.models import Genre
