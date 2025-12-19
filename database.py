@@ -8,4 +8,8 @@ def start_session():
         yield session
 
 def create_db_and_tables():
+    from books.models import Book
+    from authors.models import Author
+    from genres.models import Genre
+
     SQLModel.metadata.create_all(engine)
