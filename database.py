@@ -5,7 +5,7 @@ engine = create_engine(DATABASE_URL, echo=True)
 
 def start_session():
     with Session(engine) as session:
-        yield session
+         yield session
 
 def create_db_tables():
     from books.models import Book

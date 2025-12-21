@@ -6,23 +6,15 @@ from fastapi import APIRouter
 from database import create_db_tables
 
 @asynccontextmanager
-
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
-    async def run_database():
-        return create_db_tables()
-
-    run_database()
+    create_db_tables()
     yield
-app = FastAPI(lifespan=lifespan)
 
-@app.get("/books/models")
-async def create_book():
-    return "Created book"
+app = FastAPI(
+    title="Book Management API",
+    description="API for managing books, authors, and genres",
+    version="1.0.0",
+    lifespan=lifespan
+)
 
-@app.get("/authors/models")
-async def create_author():
-    return "Created author"
-
-@app.put("/genres/models")
-async def create_genre(book_id: int):
-    return {"book_id": book_id}
+# app.include_router(books_router, prefix="/books", tags=["Books"])
