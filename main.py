@@ -1,12 +1,20 @@
+from contextlib import asynccontextmanager
+from typing import AsyncGenerator
+
 from fastapi import FastAPI
 from fastapi import APIRouter
 from database import create_db_tables
 
-app = FastAPI()
+@asynccontextmanager
 
-@app.on_event("startup")
-async def run_database():
-    return create_db_tables()
+async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
+    async def run_database():
+        return create_db_tables()
+
+    run_database()
+    yield
+app = FastAPI(lifespan=lifespan)
+
 @app.get("/books/models")
 async def create_book():
     return "Created book"
