@@ -2,15 +2,15 @@ from sqlmodel import SQLModel
 from typing import Optional
 
 
-class BookBase(SQLModel):
-    title: str
+class BookCore(SQLModel):
     author: str
     isbn: str
-    genre: str
     publication_year: int
-
+class BookBase(BookCore):
+    title:str
+    genre:str
 class BookCreate(BookBase):
-        pass
+    pass
 
 class BookUpdate(BookBase):
     title: Optional[str] = None
