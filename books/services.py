@@ -1,10 +1,13 @@
-from fastapi import APIRouter
-import sqlite3
-from authors.models import Author
-app = APIRouter()
+from .models import Book
 
-def filter_by_genre():
+def create_book():
     pass
 
-def calculate_statistics():
+def get_book():
+    pass
+
+def update_book():
+    pass
+
+def delete_book():
     pass

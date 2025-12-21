@@ -1,8 +1,9 @@
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
-
 from fastapi import FastAPI
-from fastapi import APIRouter
+# from fastapi import APIRouter
+
+from books.routes import router as books_router
 from database import create_db_tables
 
 @asynccontextmanager
@@ -17,4 +18,4 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# app.include_router(books_router, prefix="/books", tags=["Books"])
+app.include_router(books_router, prefix="/books", tags=["Books"])
