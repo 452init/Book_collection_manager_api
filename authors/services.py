@@ -1,11 +1,53 @@
-def create_author(name, bio):
-    # logic here
-    pass
+from sqlmodel import Session
+from .models import Author
+from . import schemas
 
-def get_author_by_id(author_id):
-    # logic here
-    pass
+def create_author(
+        session: Session,
+        author_data: schemas.AuthorCreate
+):
+    author_instance = Author(**author_data.model_dump())
+    session.add(author_instance)
+    session.commit()
+    session.refresh(author_instance)
+    return author_instance
 
-class AuthorService:
-    # class logic
-    pass
+
+def get_author(
+        session: Session,
+        author_id
+):
+    author = session.get(Author, author_id)
+    if author:
+        return author
+    else:
+        return None
+
+def update_author(
+        session: Session,
+        author_id,
+        author_data: schemas.AuthorUpdate
+):
+    author = session.get(Author, author_id)
+    if not author:
+        return None
+    else:
+        update_data = author_data.model_dump(exclude_unset=True)
+        for key, value in update_data.items():
+            setattr(author, key, value)
+        session.add(author)
+        session.commit()
+        session.refresh(author)
+        return author_data
+
+def delete_author(
+        session: Session,
+        author_id
+):
+    author = session.get(Author, author_id)
+    if not author:
+        return False
+    else:
+        session.delete(author)
+        session.commit()
+        return True
