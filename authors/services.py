@@ -38,7 +38,7 @@ def update_author(
         session.add(author)
         session.commit()
         session.refresh(author)
-        return author_data
+        return author
 
 def delete_author(
         session: Session,

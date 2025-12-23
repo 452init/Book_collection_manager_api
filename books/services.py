@@ -38,7 +38,7 @@ def update_book(
         session.add(book)
         session.commit()
         session.refresh(book)
-        return book_data
+        return book
 
 def delete_book(
         session: Session,

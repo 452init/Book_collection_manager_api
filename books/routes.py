@@ -44,6 +44,6 @@ def delete_book(
         session: Session = Depends(start_session)
 ):
     """removes book from the database by deletion"""
-    book = services.delete_book(session, book_id)
-    if not book:
+    deleted_book = services.delete_book(session, book_id)
+    if not deleted_book:
         raise HTTPException(status_code=404, detail="Book not found!")

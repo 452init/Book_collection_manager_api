@@ -8,5 +8,5 @@ class Book(SQLModel, table=True):
     isbn: str
     genre: str
     publication_year: int
-    created_at: datetime
-    updated_at: datetime
+    created_at: datetime = Field(default_factory=datetime.now)
+    updated_at: datetime = Field(default_factory=datetime.now)
