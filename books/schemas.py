@@ -12,7 +12,7 @@ class BookBase(BookCore):
 class BookCreate(BookBase):
     pass
 
-class BookUpdate(BookBase):
+class BookUpdate(SQLModel):
     title: Optional[str] = None
     author: Optional[str] = None
     isbn: Optional[str] = None

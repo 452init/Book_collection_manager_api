@@ -10,8 +10,8 @@ class GenreBase(GenreCore):
 class GenreCreate(GenreBase):
     pass
 
-class GenreUpdate(GenreBase):
-    pass
+class GenreUpdate(SQLModel):
+    name: str
 
 class GenreResponse(GenreBase):
     id: int

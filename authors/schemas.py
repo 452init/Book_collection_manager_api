@@ -10,8 +10,8 @@ class AuthorBase(AuthorCore):
 class AuthorCreate(AuthorBase):
     pass
 
-class AuthorUpdate(AuthorBase):
-    pass
+class AuthorUpdate(SQLModel):
+    author_name: str
 
 class AuthorResponse(AuthorBase):
     id: int
