@@ -7,6 +7,7 @@ class Book(SQLModel, table=True):
     isbn: str
     publication_year: int
 
+    # Foreign keys to other tables
     author_id: int = Field(None, foreign_key="authors.id")
     genre_id: int = Field(None, foreign_key="genres.id")
 
