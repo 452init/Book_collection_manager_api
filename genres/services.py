@@ -38,7 +38,7 @@ def update_genre(
         session.add(genre)
         session.commit()
         session.refresh(genre)
-        return genre_data
+        return genre
 
 def delete_genre(
         session: Session,
