@@ -1,4 +1,6 @@
 # Book Collection Manager
+<img width="1826" height="994" alt="Screenshot from 2025-12-26 16-04-55" src="https://github.com/user-attachments/assets/c6125609-6c37-4798-9460-337c22bcc4a7" />
+
 
 This project is a simple book collection management API built with FastAPI and SQLite. It provides a lightweight backend for storing, retrieving, and managing book records through RESTful endpoints.
 
