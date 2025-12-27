@@ -5,3 +5,8 @@ ALLOWED_ORIGINS=" http://127.0.0.1:8000"
 
 sqlite_file_name = "my_database.db"
 DATABASE_URL=f"sqlite:///./{sqlite_file_name}"
+
+"COMMAND FOR GENERATING RANDOM KEY: openssl rand -hex 32"
+SECRET_KEY = "f9e5b474434e53992d242bd860fd5e11f569f0824ad688986fe73c279be1620a"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30

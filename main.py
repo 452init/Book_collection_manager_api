@@ -1,8 +1,9 @@
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
-from fastapi import FastAPI
-#from fastapi import APIRouter
+from fastapi import FastAPI, Depends
 
+
+from Authentication.auth import authenticate_user
 from books.routes import router as books_router
 from authors.routes import router as authors_router
 from genres.routes import router as genres_router
@@ -11,6 +12,7 @@ from database import create_db_tables
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     create_db_tables()
+    print("App starting!")
     yield
 
 app = FastAPI(
