@@ -3,7 +3,7 @@ from typing import AsyncGenerator
 from fastapi import FastAPI, Depends
 
 
-from Authentication.auth import authenticate_user
+# from Authentication.auth import authenticate_user
 from books.routes import router as books_router
 from authors.routes import router as authors_router
 from genres.routes import router as genres_router
