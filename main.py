@@ -1,9 +1,9 @@
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI
 
 
-# from Authentication.auth import authenticate_user
+from Authentication.routes import auth_router
 from books.routes import router as books_router
 from authors.routes import router as authors_router
 from genres.routes import router as genres_router
@@ -25,3 +25,4 @@ app = FastAPI(
 app.include_router(books_router, prefix="/books", tags=["Books"])
 app.include_router(authors_router, prefix="/authors", tags=["Authors"])
 app.include_router(genres_router, prefix="/genres", tags=["Genres"])
+app.include_router(auth_router, prefix="/auth", tags=["Authentication"])
