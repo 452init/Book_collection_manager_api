@@ -3,7 +3,6 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from database import get_session
 from sqlmodel import Session
-from .schemas import TokenData
 from .models import User
 from .services import get_user_by_username
 from config import SECRET_KEY, ALGORITHM
