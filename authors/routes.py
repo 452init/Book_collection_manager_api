@@ -2,18 +2,14 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session
 from . import services,schemas
 from database import get_session
+from Authentication.dependencies import get_current_user
+from Authentication.permissions import require_admin
+from Authentication.models import User
+
 
 router = APIRouter()
 
-@router.post("/", response_model=schemas.AuthorResponse, status_code=201)
-def create_author(
-        author_data: schemas.AuthorCreate,
-        session: Session = Depends(get_session)
-):
-    #create a new auther and adds it to the database
-    return services.create_author(session, author_data)
-
-
+# PUBLIC - Anyone can view authors
 @router.get("/{author_id}", response_model=schemas.AuthorResponse)
 def get_author(
         author_id: int,
@@ -26,11 +22,23 @@ def get_author(
     return author
 
 
+# ADMIN ONLY - Creating authors restricted to admins
+@router.post("/", response_model=schemas.AuthorResponse, status_code=201)
+def create_author(
+        author_data: schemas.AuthorCreate,
+        session: Session = Depends(get_session),
+        admin_user: User = Depends(require_admin)
+):
+    #create a new auther and adds it to the database
+    return services.create_author(session, author_data)
+
+#ADMIN ONLY
 @router.put("/{author_id}", response_model=schemas.AuthorResponse)
 def update_author(
         author_id: int,
         author_data: schemas.AuthorUpdate,
-        session: Session = Depends(get_session)
+        session: Session = Depends(get_session),
+        admin_user: User = Depends(require_admin)
 ):
     #updates auther in the database
     updated_author = services.update_author(session, author_id, author_data)
@@ -41,7 +49,8 @@ def update_author(
 @router.delete("/{author_id}", status_code=204,)
 def delete_author(
         author_id: int,
-        session: Session = Depends(get_session)
+        session: Session = Depends(get_session),
+        admin_user: User = Depends(require_admin)
 ):
     #removes auther from the database by deletion
     author = services.delete_author(session, author_id)

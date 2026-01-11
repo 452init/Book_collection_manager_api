@@ -22,5 +22,5 @@ class BookUpdate(SQLModel):
 
 class BookResponse(BookBase):
     id: int
-    author_id: int
-    genre_id: int
+    user_id: int
+    model_config = {"from_attributes": True}

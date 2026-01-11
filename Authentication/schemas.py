@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
+from .models import UserRole
 
 class User(BaseModel):
     username: str
@@ -12,6 +13,7 @@ class UserCreate(User):
 class UserResponse(User):
     id: int
     disabled: bool
+    role: str
     model_config = {"from_attributes": True}
 
 class Token(BaseModel):
