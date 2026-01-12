@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 from typing import Optional
-from .models import UserRole
 
 class User(BaseModel):
     username: str
