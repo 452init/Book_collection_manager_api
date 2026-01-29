@@ -12,10 +12,7 @@ def get_user_by_username(session: Session, username: str):
     result = session.exec(statement)
     return result.first()
 
-
-
 def create_user(session: Session, user: UserCreate):
-
     statement = select(func.count(User.id))
     user_count = session.exec(statement).one()
     is_first_user = (user_count == 0)
