@@ -23,6 +23,7 @@ def create_user(session: Session, user: UserCreate):
             detail="Username already exists"
         )
 
+    print(user.password)
     hashed_password = get_password_hash(user.password)
 
     db_user = User(
