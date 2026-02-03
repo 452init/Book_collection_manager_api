@@ -6,7 +6,6 @@ from datetime import timedelta
 from .models import User, UserRole
 from config import ACCESS_TOKEN_EXPIRE_MINUTES
 
-
 def get_user_by_username(session: Session, username: str):
     statement = select(User).where(User.username == username)
     result = session.exec(statement)
@@ -29,12 +28,10 @@ def create_user(session: Session, user: UserCreate):
 
     db_user = User(
         username=user.username,
-        # full_name=user.full_name,
         email=user.email,
         hashed_password=hashed_password,
         disabled=False,
         role = UserRole.ADMIN if is_first_user else UserRole.USER
-
     )
 
     session.add(db_user)
