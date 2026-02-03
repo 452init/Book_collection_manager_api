@@ -22,13 +22,14 @@ def create_user(session: Session, user: UserCreate):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Username already exists"
         )
-
-    print(user.password)
+    print(f"Password value: {user.password}")
+    print(f"Password type: {type(user.password)}")
+    print(f"Password length: {len(str(user.password))}")
     hashed_password = get_password_hash(user.password)
 
     db_user = User(
         username=user.username,
-        full_name=user.full_name,
+        # full_name=user.full_name,
         email=user.email,
         hashed_password=hashed_password,
         disabled=False,
