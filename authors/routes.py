@@ -2,10 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session
 from . import services,schemas
 from database import get_session
-from Authentication.dependencies import get_current_user
 from Authentication.permissions import require_admin
 from Authentication.models import User
-
 
 router = APIRouter()
 
@@ -15,12 +13,11 @@ def get_author(
         author_id: int,
         session: Session = Depends(get_session)
 ):
-    #queries the required auther from the database
+    #queries the required author from the database
     author = services.get_author(session, author_id)
     if not author:
         raise HTTPException(status_code=404, detail="Author not found!")
     return author
-
 
 # ADMIN ONLY - Creating authors restricted to admins
 @router.post("/", response_model=schemas.AuthorResponse, status_code=201)
@@ -29,7 +26,7 @@ def create_author(
         session: Session = Depends(get_session),
         admin_user: User = Depends(require_admin)
 ):
-    #create a new auther and adds it to the database
+    #create a new author and adds it to the database
     return services.create_author(session, author_data)
 
 #ADMIN ONLY
@@ -40,7 +37,7 @@ def update_author(
         session: Session = Depends(get_session),
         admin_user: User = Depends(require_admin)
 ):
-    #updates auther in the database
+    #updates author in the database
     updated_author = services.update_author(session, author_id, author_data)
     if not updated_author:
         raise HTTPException(status_code=404, detail="Author not found!")
@@ -52,7 +49,7 @@ def delete_author(
         session: Session = Depends(get_session),
         admin_user: User = Depends(require_admin)
 ):
-    #removes auther from the database by deletion
+    #removes author from the database by deletion
     author = services.delete_author(session, author_id)
     if not author:
         raise HTTPException(status_code=404, detail="Author not found!")
