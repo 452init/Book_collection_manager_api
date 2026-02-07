@@ -11,7 +11,6 @@ def require_admin(current_user: User = Depends(get_current_user)) -> User:
         )
     return current_user
 
-
 def require_active_user(current_user: User = Depends(get_current_user)) -> User:
     if current_user.disabled:
         raise HTTPException(
@@ -21,9 +20,9 @@ def require_active_user(current_user: User = Depends(get_current_user)) -> User:
     return current_user
 
 def require_admin_or_user(current_user: User = Depends(get_current_user)) -> User:
-    if current_user.role != UserRole.ADMIN or UserRole.USER:
+    if not(current_user.role == UserRole.ADMIN or current_user.user_id == current_user.id):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Admin privileges required"
+            detail="Not authorized"
         )
     return current_user
