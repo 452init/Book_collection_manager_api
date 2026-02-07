@@ -21,9 +21,6 @@ def create_user(session: Session, user: UserCreate):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Username already exists"
         )
-    print(f"Password value: {user.password}")
-    print(f"Password type: {type(user.password)}")
-    print(f"Password length: {len(str(user.password))}")
     hashed_password = get_password_hash(user.password)
 
     db_user = User(
@@ -40,7 +37,6 @@ def create_user(session: Session, user: UserCreate):
 
     return UserResponse.model_validate(db_user, from_attributes=True)
 
-
 def authenticate_user(session: Session, username: str, password: str):
     user = get_user_by_username(session, username)
     if not user:
@@ -48,7 +44,6 @@ def authenticate_user(session: Session, username: str, password: str):
     if not verify_password(password, user.hashed_password):
         return None
     return user
-
 
 def login_user(session: Session, username: str, password: str):
     user = authenticate_user(session, username, password)
