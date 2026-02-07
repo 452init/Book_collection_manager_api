@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session
 from . import services,schemas
 from database import get_session
-from Authentication.permissions import require_admin, require_admin_or_user
+from Authentication.permissions import require_admin
 from Authentication.models import User
 
 router = APIRouter()
@@ -34,6 +34,7 @@ def create_author(
 def update_author(
         author_id: int,
         author_data: schemas.AuthorUpdate,
+        verified_result: Author = Depends(require_admin_or_user),
         session: Session = Depends(get_session),
         admin_user: User = Depends(require_admin_or_user)
 ):
