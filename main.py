@@ -5,7 +5,7 @@ from fastapi import FastAPI
 
 from Authentication.routes import router as auth_router
 from books.routes import router as books_router
-from Authentication.routes import router as authors_router
+from authors.routes import router as authors_router
 from genres.routes import router as genres_router
 from database import create_db_tables
 
