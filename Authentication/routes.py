@@ -7,7 +7,7 @@ from .schemas import UserCreate, UserResponse, Token
 from .services import create_user, login_user
 from .dependencies import get_current_user
 
-router = APIRouter(tags=["authentication"])
+router = APIRouter(tags=["Authentication"])
 
 @router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 def register(
