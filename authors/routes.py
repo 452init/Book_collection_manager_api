@@ -3,6 +3,7 @@ from sqlmodel import Session
 from . import services,schemas
 from database import get_session
 from Authentication.permissions import require_admin
+from .permissions import require_admin_or_user, Author
 from Authentication.models import User
 
 router = APIRouter()
@@ -34,15 +35,16 @@ def create_author(
 def update_author(
         author_id: int,
         author_data: schemas.AuthorUpdate,
-        verified_result: Author = Depends(require_admin_or_user),
+        verified_author: Author = Depends(require_admin_or_user),
         session: Session = Depends(get_session),
-        admin_user: User = Depends(require_admin_or_user)
 ):
     #updates author in the database
-    updated_author = services.update_author(session, author_id, author_data)
-    if not updated_author:
-        raise HTTPException(status_code=404, detail="Author not found!")
-    return updated_author
+    for key, value in author_data.model_dump(exclude_unset=True).items():
+        setattr(verified_author, key, value)
+    session.add(verified_author)
+    session.commit()
+    session.refresh(verified_author)
+    return verified_author
 
 @router.delete("/{author_id}", status_code=204,)
 def delete_author(
